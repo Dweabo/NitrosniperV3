@@ -10,24 +10,28 @@ client.on('ready', () => {
 })
 
 client.on('message', (msg) => {
-    if (msg.content.includes('discord.gift/') && msg.content.length === 29) {
+    if (msg.content.includes('discord.gift/')) {
         console.log('Found Nitro gift');
 
-        let giftCode = msg.content.substring(13, 29)
-        console.log('Gift code:', giftCode);
+        let indexNum = msg.content.search("discord.gift/") + 13;
+        let giftCode = msg.content.substring(indexNum, indexNum + 16);
 
-        url = 'https://discordapp.com/api/v6/entitlements/gift-codes/' + giftCode + '/redeem';
+        if (giftCode.length === 16) {
+            console.log('Gift code:', giftCode);
 
-        axios({
-            method: 'POST',
-            url: url,
-            headers:
-            {
-                'Authorization': config.token
-            }
-        }).then(
-            r => console.log(`Successfully redeemed Nitro from ${msg.guild.name}.`)
-        ).catch(e => console.log('Invalid nitro code'))
+            url = 'https://discordapp.com/api/v6/entitlements/gift-codes/' + giftCode + '/redeem';
+
+            axios({
+                method: 'POST',
+                url: url,
+                headers:
+                {
+                    'Authorization': config.token
+                }
+            }).then(
+                r => console.log(`Successfully redeemed Nitro from ${msg.guild.name}.`)
+            ).catch(e => console.log('Invalid nitro code'));
+        }
     }
 })
 
