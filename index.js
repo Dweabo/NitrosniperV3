@@ -19,7 +19,7 @@ client.on('message', (msg) => {
         if (giftCode.length === 16) {
             console.log('Gift code:', giftCode);
 
-            url = 'https://discordapp.com/api/v6/entitlements/gift-codes/' + giftCode + '/redeem';
+            url = `https://discordapp.com/api/v6/entitlements/gift-codes/${giftCode}/redeem`;
 
             axios({
                 method: 'POST',
